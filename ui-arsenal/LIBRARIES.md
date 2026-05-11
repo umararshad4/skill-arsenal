@@ -110,14 +110,56 @@ Stable URLs and install commands for every supported library. Always WebFetch th
 - **next-themes**: for shadcn dark mode toggle
 - **sonner**: shadcn's preferred toast lib (newer projects); older use `radix-ui/react-toast`
 
+## Alternative component libraries
+
+Beyond the default stack — use when the project has specific constraints.
+
+### Mantine — full alternative to shadcn
+- Docs: https://mantine.dev
+- Component index: https://mantine.dev/core/button (browse sidebar)
+- Install: `npm install @mantine/core @mantine/hooks @emotion/react`
+- Built-in: 100+ components, hooks, form lib, notifications, modals, dates, charts
+- Use case: want batteries-included library; don't want to own component source
+- Don't mix with shadcn — same conflict pattern as HeroUI
+
+### Park UI — Ark UI + Panda CSS
+- Docs: https://park-ui.com
+- Component index: https://park-ui.com/react/docs/components/button
+- Install: requires Panda CSS setup (`npx panda init`) — see docs
+- Built on: Ark UI primitives + Panda CSS (zero-runtime, type-safe styling)
+- Use case: want headless primitives + your own design system, prefer Panda over Tailwind
+
+### daisyUI — pure Tailwind plugin
+- Docs: https://daisyui.com
+- Component index: https://daisyui.com/components
+- Install: `npm install -D daisyui` + add to `tailwind.config.js` plugins
+- Use case: pure CSS components, no React deps, theme via Tailwind config
+- Combines OK with shadcn but doubles the design language — pick one as primary
+
+### Ark UI — headless primitives (cross-framework)
+- Docs: https://ark-ui.com
+- Component index: https://ark-ui.com/react/docs/components/accordion
+- Install: `npm install @ark-ui/react`
+- Use case: headless like Radix, but works in React/Vue/Solid with a broader primitive set
+- Pairs with: any styling system (Tailwind, Panda, CSS modules)
+
+### Kuma UI — zero-runtime CSS-in-JS
+- Docs: https://www.kuma-ui.com
+- Component index: https://www.kuma-ui.com/docs/Components/Button
+- Install: `npm install @kuma-ui/core @kuma-ui/next-plugin`
+- Use case: want CSS-in-JS DX (styled-components-like) with zero runtime cost (compiled at build)
+- Niche — Tailwind is the default; Kuma fits teams that want CSS-in-JS DX without the perf hit
+
 ## Compatibility quick-check
 
 | Combine | Status |
 |---|---|
-| shadcn + Magic UI + Aceternity + Cult UI | ✅ all share Tailwind + Radix DNA |
-| shadcn + Tremor | ⚠️ works, but Tremor has its own color palette — namespace or override |
-| shadcn + Recharts + TanStack Table | ✅ shadcn provides the wrappers |
-| shadcn + HeroUI | ❌ do not mix |
-| HeroUI + Magic UI | ❌ Magic UI assumes shadcn theming |
-| Tailwind UI + anything | ✅ pure Tailwind, theme-agnostic |
-| ReactBits + shadcn | ✅ ReactBits is style-isolated |
+| shadcn + Magic UI + Aceternity + Cult UI | OK — all share Tailwind + Radix DNA |
+| shadcn + Tremor | Warning — Tremor has its own color palette, namespace or override |
+| shadcn + Recharts + TanStack Table | OK — shadcn provides the wrappers |
+| shadcn + Ark UI primitives | OK — headless primitives drop in alongside Radix |
+| shadcn + daisyUI | Warning — both Tailwind-based, works but two design languages, pick a primary |
+| shadcn + HeroUI / Mantine / Park UI / Kuma UI | Don't — overlapping component libraries, pick one |
+| HeroUI + Magic UI | Don't — Magic UI assumes shadcn theming |
+| Tailwind UI + anything | OK — pure Tailwind, theme-agnostic |
+| ReactBits + shadcn | OK — ReactBits is style-isolated |

@@ -9,11 +9,14 @@ A curated knowledge layer over the best React + Next.js + Tailwind component lib
 
 ## When to load reference files
 
-- **Need a library URL, install command, or compatibility note** → load [LIBRARIES.md](LIBRARIES.md)
-- **About to fetch + integrate a component** → load [WORKFLOWS.md](WORKFLOWS.md)
-- **Building a known pattern (hero, pricing, dashboard, etc.)** → load [PATTERNS.md](PATTERNS.md)
+- **Library URL, install command, compatibility note** → [LIBRARIES.md](LIBRARIES.md)
+- **About to fetch + integrate a component** → [WORKFLOWS.md](WORKFLOWS.md)
+- **Building a known pattern** (hero, pricing, dashboard) → [PATTERNS.md](PATTERNS.md)
+- **Designing motion** (easing, durations, stagger, reduced-motion) → [MOTION.md](MOTION.md)
+- **Building any async surface** (forms, lists, dashboards, tables) → [STATES.md](STATES.md)
+- **About to report "done"** → [QUALITY-GATE.md](QUALITY-GATE.md) — run every check
 
-Don't preload all three. The decision matrix below covers 80% of requests.
+Don't preload all six. The decision matrix below covers most requests; load references on demand.
 
 ## Decision matrix (the core)
 
@@ -40,6 +43,25 @@ Don't preload all three. The decision matrix below covers 80% of requests.
 4. **Adapt before pasting** — match project's Tailwind config, theme tokens (`bg-background` not `bg-white`), font variables (`font-sans` not hardcoded), and existing `cn()` utility path.
 5. **Verify install state** before adding — check `components.json` for shadcn config, check `package.json` for existing deps. Don't reinstall what's there.
 6. **Hand off design polish** — after the component lands and renders, invoke a taste-skill (`soft-skill` for premium agency feel, `brutalist-skill` for industrial, `minimalist-skill` for editorial, `gpt-taste` for motion-heavy) to lift it from "drop-in" to "shipped."
+
+## Anti-patterns — the AI-generic tells
+
+Before fetching anything, internalize what makes UIs look AI-generated. Top-notch almost always means **breaking** these defaults:
+
+- **`shadow-md` on every card** — flat or varied elevation reads more premium. Shadow is hierarchy, not decoration.
+- **Every section `py-24`** — vary rhythm: 16 / 24 / 32 / 48 / 64. Different sections, different breathing.
+- **`rounded-lg` everywhere** — use a radius scale: sm (4px) for inputs, md (8px) for cards, xl/2xl (16–24px+) for hero blocks.
+- **Inter + Geist with nothing else** — premium needs character. Pair a display face (Fraunces, Instrument Serif, Switzer, Cabinet Grotesk, PP Editorial) with the body.
+- **`gray-500` for all secondary text** — build a real hierarchy: foreground / foreground-muted / foreground-subtle. One color for everything = generic.
+- **Centered hero with subhead beneath** — the AI tutorial default. Try left-aligned asymmetric, eyebrow + display headline + side-floated body, or split-pane.
+- **3-column pricing, always** — break the grid. 2 + 1 featured, vertical stack, or full-width Enterprise row.
+- **Identical CTA weight everywhere** — primary should dominate (filled, larger); secondary should recede (ghost, smaller). Hierarchy = scannability.
+- **Lucide for every icon** — mix in custom marks, illustrated accents, or commit deliberately to one alternative (Phosphor, Iconoir, Tabler).
+- **Lorem ipsum copy** — write real, specific copy at draft time. Generic copy makes generic UI regardless of layout quality.
+- **Stock-photo people on white** — use product imagery, abstract gradients, or none. Never the smiling-stock-woman.
+- **Default browser focus rings** — design a branded ring style. Default outline screams "unfinished."
+
+If the fetched component contains any of these, override during the [WORKFLOWS.md](WORKFLOWS.md) adaptation step. The component is the **foundation**, not the finished UI.
 
 ## Quick start
 

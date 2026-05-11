@@ -2,6 +2,23 @@
 
 Battle-tested recipes for common UI surfaces. Each one names the libraries to combine, the order to fetch them, and the gotchas. Use these as the starting point — then run the result through a taste-skill.
 
+## States in every recipe
+
+Every async surface needs loading / empty / error / success — that's what separates demo-grade from product-grade. Wire these per [STATES.md](STATES.md). Quick map:
+
+| Pattern | Critical states |
+|---|---|
+| Form | Loading (button spinner) + error (per field + submit) + success (toast + reset) |
+| Data table | Loading (skeleton rows) + empty (CTA or "Clear filters") + error (retry block) |
+| Dashboard | Loading (skeleton cards) + empty (per-metric) + error (per-card retry) |
+| Pricing | Loading (checkout init) + error (payment) + success (redirect/toast) |
+| Search | Loading (skeleton results) + empty ("No results for X") + error (retry) |
+| File upload | Progress (real %) + error (per-file retry) + success (per-file confirm) |
+| Modal / sheet | Skeleton body + inline error inside + close + toast on success |
+| Hero / marquee / CTA | Usually static — no state coverage needed |
+
+Skipping these is the most common AI-generic tell. Verify before reporting done.
+
 ## Landing hero (high-impact)
 
 **Stack**: Aceternity `spotlight` OR `background-beams` + Magic UI `animated-shiny-text` (eyebrow) + custom `<h1>` + Magic UI `shimmer-button` (primary CTA) + shadcn `button` variant=ghost (secondary)

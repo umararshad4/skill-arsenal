@@ -120,13 +120,89 @@ Before pasting, transform the fetched code:
 
 ---
 
+## Performance budget
+
+Premium UIs can be heavy. Set the budget at build start; enforce on every component add.
+
+### Bundle budget
+
+| Constraint | Limit |
+|---|---|
+| Per-route First Load JS | ≤ 200KB |
+| Total client JS | ≤ 350KB |
+| Total page weight (uncached) | ≤ 1MB |
+| Above-the-fold images | ≤ 5 per route |
+| Custom font families | ≤ 2 families, ≤ 3 weights total |
+
+Run `npm run build` after every significant add. Next.js prints per-route JS size — flag any regression > 30KB and investigate.
+
+### Component-by-component cost
+
+| Component | Approx cost (gz) | Strategy |
+|---|---|---|
+| Framer Motion (any) | ~30KB | Up to 3 eager per route; lazy-load further use |
+| Aceternity background (most) | 5-15KB + framer-motion | Always `dynamic` import with `ssr: false` |
+| Magic UI marquee / dock | ~5KB + framer-motion | Eager OK |
+| Magic UI globe | ~80KB (cobe lib) | Always dynamic, defer below fold |
+| Three.js component | 150KB+ | Dynamic only, never above fold |
+| Recharts | ~80KB | Dynamic if not above fold |
+| Tremor full | ~120KB | Dynamic, route-level code split |
+| TanStack Table | ~15KB | Eager OK |
+
+### Lazy-load rules
+
+Use `next/dynamic` with `ssr: false` for:
+- Anything WebGL (globe, three.js, shaders)
+- Background animations below the fold
+- Charts not visible on initial render
+- Modal contents (load on open)
+
+```tsx
+import dynamic from "next/dynamic"
+
+const Globe = dynamic(() => import("@/components/magicui/globe"), {
+  ssr: false,
+  loading: () => <Skeleton className="h-96 w-96 rounded-full" />,
+})
+```
+
+### Image rules
+
+- Always `next/image` — never `<img>` in Next.js
+- Always set `sizes` prop for responsive images — uncapped images destroy LCP
+- Default AVIF/WebP via Next.js — don't override
+- Above-the-fold hero image: `priority` prop
+- Below the fold: default lazy
+
+### Font rules
+
+- Use `next/font/google` or `next/font/local` — never `<link rel="stylesheet">` to Google Fonts
+- Self-host (next/font does this automatically)
+- Subset to Latin unless project is i18n'd
+- Variable fonts when available — one file, every weight
+- `display: 'swap'` to avoid FOIT
+
+### Threshold for dynamic import
+
+Any client component importing a library > 30KB gz AND not above the fold → dynamic-import it. Even if it's "just one section."
+
+Check size with `npx bundle-phobia <package>` or inspect Next.js build output.
+
+---
+
 ## Pre-flight checklist (before reporting done)
 
 - [ ] Component file exists at expected path
 - [ ] All imports resolve, no red squiggles
 - [ ] All required deps installed (`framer-motion`, etc.)
 - [ ] Hardcoded colors replaced with theme tokens
-- [ ] Renders in dev server (run `npm run dev` and load the page)
+- [ ] Renders in dev server (`npm run dev` + load the page)
 - [ ] Dark mode looks correct (toggle if `next-themes` is set up)
 - [ ] No console errors on render
-- [ ] Handed off to taste-skill OR explicitly noted that polish is the next step
+- [ ] Performance budget verified (`npm run build`, check First Load JS)
+- [ ] Heavy components dynamic-imported per the rules above
+- [ ] Loading / empty / error states wired per [STATES.md](STATES.md)
+- [ ] Motion respects reduced-motion per [MOTION.md](MOTION.md)
+- [ ] Handed off to taste-skill OR explicitly noted polish is the next step
+
+For full quality verification (visual review, a11y audit, responsive sweep, perf), run [QUALITY-GATE.md](QUALITY-GATE.md) — that is the final gate before "done."
