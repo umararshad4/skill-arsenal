@@ -44,6 +44,10 @@ Test in order. Stop and fix the first failure before continuing.
 
 ## 4. Performance budget
 
+**One-shot option**: `bash ~/.claude/skills/ui-arsenal/scripts/verify.sh [URL]` runs build + Lighthouse + axe and prints all numbers below. Quote the script output verbatim — don't eyeball.
+
+Manual checks if the script isn't available:
+
 Run `npm run build` and inspect:
 
 - [ ] First Load JS per route ≤ 200KB (Next.js prints this — flag anything red)

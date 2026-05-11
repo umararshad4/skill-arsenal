@@ -7,6 +7,10 @@ End-to-end processes for fetching, adapting, and integrating components. Run the
 Use for: shadcn/ui, Magic UI, Cult UI, 21st.dev registry items.
 
 ### 1. Audit the project (do this first, every time)
+
+**One-shot scan**: from project root, run `bash ~/.claude/skills/ui-arsenal/scripts/scan-tokens.sh`. It outputs CSS variables, Tailwind config, components.json, fonts, existing components, and UI-related deps in a single report. Read it before continuing.
+
+Manual checks (do these even if the script ran clean):
 - [ ] `components.json` exists? If no → `npx shadcn@latest init` (ask user to confirm before running)
 - [ ] Tailwind v3 or v4? Check `tailwind.config.js`/`.ts` or CSS `@import "tailwindcss"` — affects component compatibility
 - [ ] `cn()` utility location? Usually `lib/utils.ts`

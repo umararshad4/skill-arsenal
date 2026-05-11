@@ -5,18 +5,37 @@ description: Premium component-library expert for React + Next.js + Tailwind. Kn
 
 # UI Arsenal
 
-A curated knowledge layer over the best React + Next.js + Tailwind component libraries. Job: **pick the right source, fetch the live code, adapt it to the project, integrate cleanly** — then hand off to a taste-skill for polish.
+A curated knowledge layer over the best React + Next.js + Tailwind component libraries. Job: **pick the right source, fetch the live code, adapt it to the project, enforce premium taste rules, verify before reporting done**.
+
+> **MANDATORY before claiming "done"**: run [SELF-CHECK.md](SELF-CHECK.md). It is the single forcing function preventing AI-generic output. Skip it and the work regresses.
 
 ## When to load reference files
 
-- **Library URL, install command, compatibility note** → [LIBRARIES.md](LIBRARIES.md)
-- **About to fetch + integrate a component** → [WORKFLOWS.md](WORKFLOWS.md)
-- **Building a known pattern** (hero, pricing, dashboard) → [PATTERNS.md](PATTERNS.md)
-- **Designing motion** (easing, durations, stagger, reduced-motion) → [MOTION.md](MOTION.md)
-- **Building any async surface** (forms, lists, dashboards, tables) → [STATES.md](STATES.md)
-- **About to report "done"** → [QUALITY-GATE.md](QUALITY-GATE.md) — run every check
+**Sourcing** (where to get components):
+- **Library URL, install, compatibility** → [LIBRARIES.md](LIBRARIES.md)
+- **Fetch + integrate a component** → [WORKFLOWS.md](WORKFLOWS.md)
+- **Build a known pattern** (hero, pricing, dashboard) → [PATTERNS.md](PATTERNS.md)
 
-Don't preload all six. The decision matrix below covers most requests; load references on demand.
+**Quality rules** (apply during build):
+- **Numeric premium rules** (type, spacing, color, radii) → [TASTE-RULES.md](TASTE-RULES.md)
+- **Motion language** (easing, durations, stagger) → [MOTION.md](MOTION.md)
+- **Async surface states** (forms, tables, dashboards) → [STATES.md](STATES.md)
+
+**Verification** (before reporting done):
+- **"Look like THIS" examples** → [REFERENCE-VAULT.md](REFERENCE-VAULT.md)
+- **Final checkpoint runbook** → [QUALITY-GATE.md](QUALITY-GATE.md)
+- **Mandatory pre-completion ritual** → [SELF-CHECK.md](SELF-CHECK.md)
+
+Don't preload all nine. The decision matrix below covers fetching; SELF-CHECK is the only one you run every time.
+
+## Verification scripts
+
+Two scripts live at `scripts/`:
+
+- `bash ~/.claude/skills/ui-arsenal/scripts/scan-tokens.sh` — discovers the project's design tokens (CSS vars, Tailwind config, fonts, existing components). **Run before fetching.**
+- `bash ~/.claude/skills/ui-arsenal/scripts/verify.sh [URL]` — runs `npm run build` + Lighthouse + axe and prints numbers. **Run before reporting done.**
+
+Both scripts produce output you must quote verbatim in your response — not paraphrase.
 
 ## Decision matrix (the core)
 

@@ -98,16 +98,22 @@ See [`ui-arsenal/SKILL.md`](./ui-arsenal/SKILL.md) for the full decision matrix 
 
 ```
 skill-arsenal/
-├── README.md              # This file
-├── LICENSE                # MIT
-└── ui-arsenal/            # First skill — premium component-library expert
-    ├── SKILL.md           # Entry point: decision matrix, hard rules, anti-patterns
-    ├── LIBRARIES.md       # Registry of doc URLs, install commands, compatibility (incl. Mantine, Park UI, daisyUI, Ark UI, Kuma UI)
-    ├── WORKFLOWS.md       # Fetch → adapt → integrate process + performance budget
-    ├── PATTERNS.md        # Composition recipes for common surfaces
-    ├── MOTION.md          # Motion language — easings, durations, stagger, reduced-motion
-    ├── STATES.md          # Loading / empty / error / success patterns
-    └── QUALITY-GATE.md    # Final checkpoint: visual review, a11y, responsive, performance
+├── README.md                      # This file
+├── LICENSE                        # MIT
+└── ui-arsenal/                    # First skill — premium component-library expert
+    ├── SKILL.md                   # Entry point: decision matrix, hard rules, anti-patterns
+    ├── LIBRARIES.md               # 16 libraries — doc URLs, install commands, compatibility
+    ├── WORKFLOWS.md               # Fetch → adapt → integrate + performance budget
+    ├── PATTERNS.md                # Composition recipes + state-coverage map
+    ├── MOTION.md                  # Motion language: easings, durations, stagger, reduced-motion
+    ├── STATES.md                  # Loading / empty / error / success patterns
+    ├── TASTE-RULES.md             # Numeric premium rules (type, spacing, color, radii, motion)
+    ├── REFERENCE-VAULT.md         # Curated "look like THIS" sites per pattern
+    ├── QUALITY-GATE.md            # Final checkpoint: visual / a11y / responsive / perf
+    ├── SELF-CHECK.md              # Mandatory pre-completion ritual (the forcing function)
+    └── scripts/
+        ├── verify.sh              # Run build + Lighthouse + axe, print numbers
+        └── scan-tokens.sh         # Discover project's design tokens
 ```
 
 Each skill is a self-contained folder. Adding a new one means dropping a new directory with at least a `SKILL.md` inside; the install loop in the [Installation](#installation) section picks it up automatically.
